@@ -21,12 +21,15 @@ public class Profissional implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private Cargo cargo;
     private LocalDate nascimento;
     private LocalDate create_data;
 
     @OneToMany(mappedBy = "profissional", fetch = FetchType.LAZY)
     private List<Contato> contatos;
-
 }

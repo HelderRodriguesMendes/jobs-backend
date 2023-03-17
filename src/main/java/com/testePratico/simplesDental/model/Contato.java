@@ -2,6 +2,7 @@ package com.testePratico.simplesDental.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,10 +21,14 @@ public class Contato implements Serializable {
 
     @Getter
     @Setter
+    @NotBlank(message = "Nome")
+    @Column(nullable = false)
     private String nome;
 
     @Getter
     @Setter
+    @NotBlank(message = "Contato")
+    @Column(unique = true)
     private String contato;
 
     @JsonIgnore

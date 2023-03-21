@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -26,10 +27,15 @@ public class Profissional implements Serializable {
     private String nome;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Cargo cargo;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate nascimento;
+
+    @Column
     private LocalDate create_data;
 
-    @OneToMany(mappedBy = "profissional", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profissional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Contato> contatos;
 }

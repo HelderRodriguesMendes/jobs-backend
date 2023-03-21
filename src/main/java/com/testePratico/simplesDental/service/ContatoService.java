@@ -36,7 +36,25 @@ public class ContatoService {
         List<Contato> contatos = verificarBuscaContatos(texto);
         return contatos;
     }
-//----------------------------------------------------------------------------------------------------
+
+    public Contato editarContato(Contato contato){
+        buscarContatoID(contato.getId());
+        Contato contatoAlterado = contatoRepository.save(contato);
+        return contatoAlterado;
+    }
+
+    public void excluirContato(Long id){
+        buscarContatoID(id);
+        contatoRepository.deleteById(id);
+    }
+
+    private void verificarExistenciaContato(String contato){
+        Optional<Contato> contatoOptional = contatoRepository.findByContato(contato);
+        if (contatoOptional.isPresent()){
+            throw new RegraNegocioException("Contato " + contato + " já está cadastrado");
+        }
+    }
+//---------------------------------PADRAO DE PROJETO STRATEGY-----------------------------------------
     private List<Contato> verificarBuscaContatos(String texto){
         List<Contato> contatos = new ArrayList<>();
         ListagemContatos buscaPorNome = new VerificarNomeContato();
@@ -54,12 +72,5 @@ public class ContatoService {
     private List<Contato> realizarBusca(String texto, ListagemContatos buscaQualquer){
         List<Contato> contatos = buscaQualquer.buscar(texto, contatoRepository);
         return contatos;
-    }
-
-    private void verificarExistenciaContato(String contato){
-        Optional<Contato> contatoOptional = contatoRepository.findByContato(contato);
-        if (contatoOptional.isPresent()){
-            throw new RegraNegocioException("Contato " + contato + " já está cadastrado");
-        }
     }
 }

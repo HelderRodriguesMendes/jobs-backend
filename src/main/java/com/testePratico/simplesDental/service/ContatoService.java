@@ -5,6 +5,8 @@ import com.testePratico.simplesDental.exception.RegraNegocioException;
 import com.testePratico.simplesDental.model.Contato;
 import com.testePratico.simplesDental.repository.ContatoRepository;
 import com.testePratico.simplesDental.repository.ListagemContatos;
+import com.testePratico.simplesDental.service.strategy.VerificarContato;
+import com.testePratico.simplesDental.service.strategy.VerificarNomeContato;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +56,7 @@ public class ContatoService {
             throw new RegraNegocioException("Contato " + contato + " já está cadastrado");
         }
     }
+
 //---------------------------------PADRAO DE PROJETO STRATEGY-----------------------------------------
     private List<Contato> verificarBuscaContatos(String texto){
         List<Contato> contatos = new ArrayList<>();

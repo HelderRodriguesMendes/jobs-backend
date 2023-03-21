@@ -9,30 +9,28 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Contato implements Serializable {
 
     @Id
-    @Getter
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_c")
     private Long id;
 
-    @Getter
-    @Setter
     @NotBlank(message = "Nome")
-    @Column(nullable = false)
+    @Column(nullable = false, name = "nomeContato")
     private String nome;
 
-    @Getter
-    @Setter
     @NotBlank(message = "Contato")
     @Column(unique = true)
     private String contato;
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "profissional_fk")
     private Profissional profissional;
 
     public Contato(Long id, String nome, String contato) {

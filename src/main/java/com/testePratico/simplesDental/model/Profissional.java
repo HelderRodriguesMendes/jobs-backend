@@ -12,30 +12,45 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Profissional implements Serializable {
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_p")
     private Long id;
 
-    @Column(nullable = false)
+    @Getter
+    @Setter
+    @Column(nullable = false, name = "nomeProfissional")
     private String nome;
 
+    @Getter
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Cargo cargo;
+    private String cargo;
 
+    @Getter
+    @Setter
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate nascimento;
 
+    @Getter
+    @Setter
     @Column
     private LocalDate create_data;
 
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "profissional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Contato> contatos;
+
+    public void setCargo(Cargo cargo) {
+        if(cargo != null){
+            this.cargo = cargo.getDescricao();
+        }
+    }
 }

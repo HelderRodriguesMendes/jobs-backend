@@ -18,5 +18,4 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
     public List<Contato> buscarContatos_contato(String texto);
 
     public Optional<Contato> findByContato(String contato);
-
 }
